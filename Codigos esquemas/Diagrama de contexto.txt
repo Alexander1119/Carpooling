@@ -1,3 +1,18 @@
-@startuml
+@startuml Basic Sample
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Container.puml
 
+Person(Driver, "Carpooler")
+Person(Passenger, "Passenger", "Temporal")
+System_Boundary(c1, "Carpooling System") {
+    Container(app, "Mobile App", "JavaSpring, Telegram", "Allows users to verify available")
+    Container(app, "Mobile App", "JavaSpring, Telegram", "Allows users to compare multiple Twitter timelines")
+}
+System(SEGIP, "SEGIP")
+System(Transito, "Transito")
+
+Rel(Driver, app, "Uses", "HTTPS")
+Rel(Passenger, app, "Uses", "HTTPS")
+Rel(app, SEGIP, "Gets info from", "HTTPS")
+Rel(app, Transito, "Gets info from", "HTTPS")
+Rel(app, SEGIP, "Gets info from", "HTTPS")
 @enduml
