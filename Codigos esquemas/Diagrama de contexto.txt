@@ -5,14 +5,19 @@ Person(Driver, "Carpooler")
 Person(Passenger, "Passenger", "Temporal")
 System_Boundary(c1, "Carpooling System") {
     Container(app, "Mobile App", "JavaSpring, Telegram", "Allows users to verify available")
-    Container(app, "Mobile App", "JavaSpring, Telegram", "Allows users to compare multiple Twitter timelines")
+    Container(database, "FireBase", "JSON, Telegram", "Allows app to search for the data inquired")
 }
 System(SEGIP, "SEGIP")
 System(Transito, "Transito")
+System(Cuenta, "Google")
 
-Rel(Driver, app, "Uses", "HTTPS")
-Rel(Passenger, app, "Uses", "HTTPS")
-Rel(app, SEGIP, "Gets info from", "HTTPS")
-Rel(app, Transito, "Gets info from", "HTTPS")
-Rel(app, SEGIP, "Gets info from", "HTTPS")
+Rel(app, database, "Enquire")
+Rel(Driver, app, "Sends Route")
+Rel(Passenger, app, "Ask for drivers")
+Rel(app, Passenger, "receive info from drivers")
+Rel(app, SEGIP, "Gets info from")
+Rel(app, Transito, "Gets info from")
+Rel(SEGIP, app, "send info to")
+
+Rel(app, Cuenta, "verify login")
 @enduml
